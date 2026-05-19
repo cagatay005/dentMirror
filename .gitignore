@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C++ / CMake (Derleme Dosyaları)
+build/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# VS Code / IDE
+.vscode/
+*.swp
+
+# Çıktılar ve Veriler (Öğrenci verilerinin GitHub'a gitmesini engeller)
+data/*.csv
+
+# İşletim Sistemi Kalıntıları
+.DS_Store
