@@ -1,4 +1,4 @@
-<h1DentMirror - Indirect Vision Simulator</h1>
+<h1>DentMirror - Indirect Vision Simulator</h1>
 
 DentMirror is a hybrid (C++ / Python) simulation software designed for dental students to improve their indirect vision and hand-eye coordination skills using a dental mirror.
 
@@ -52,5 +52,7 @@ python3 app/baslangic.py
 
 ## Technologies Used
 *Backend: C++11, pybind11, CMake*
+
 *Frontend: Python 3, PyQt6*
+
 *Data & Analytics: Pandas, Matplotlib*
