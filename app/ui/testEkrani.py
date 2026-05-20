@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QDialog, QVBoxLayout, QPushButton, QLabel
 from PyQt6.QtGui import QPainter, QPen, QColor, QFont
-from PyQt6.QtCore import Qt, QTimer # Geri sayim icin QTimer dahil ettik
+from PyQt6.QtCore import Qt, QTimer
 import dentMirrorCore
 from analytics.veriIsleyici import veriIsleyici
 from analytics.veriKaydedici import veriKaydedici
@@ -31,26 +31,24 @@ class testEkrani(QDialog):
             self.modStr = "Tam Ayna"
 
         self.cizimNoktalari = []
+        self.anlikHata = False # YENI: Kirmizi filtreyi tetikleyecek durum degiskeni
 
         duzen = QVBoxLayout()
         
-        # --- YENİ: Ekranda Gorunecek Zamanlayici Etiketi ---
         self.zamanlayiciEtiketi = QLabel("")
         self.zamanlayiciEtiketi.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.zamanlayiciEtiketi.setFont(QFont("Arial", 14, QFont.Weight.Bold))
         duzen.addWidget(self.zamanlayiciEtiketi)
         
-        # Eger sure siniri aktifse QTimer mekanizmasini kurup baslatiyoruz
         if self.sureAktif:
             self.zamanlayiciEtiketi.setText(f"Kalan Süre: {self.kalanSure} sn ")
             self.zamanlayiciEtiketi.setStyleSheet("color: darkred;")
             self.zamanlayici = QTimer()
             self.zamanlayici.timeout.connect(self.saniyeyiGuncelle)
-            self.zamanlayici.start(1000) # Her 1000 milisaniyede (1 saniye) bir tetiklenir
+            self.zamanlayici.start(1000)
         else:
             self.zamanlayiciEtiketi.setText("Serbest Çalışma Modu ")
             self.zamanlayiciEtiketi.setStyleSheet("color: darkgreen;")
-        # --------------------------------------------------
 
         duzen.addStretch()
         
@@ -61,17 +59,13 @@ class testEkrani(QDialog):
         
         self.setLayout(duzen)
 
-    # --- YENİ: Her saniye tetiklenen geri sayim fonksiyonu ---
     def saniyeyiGuncelle(self):
         self.kalanSure -= 1
         self.zamanlayiciEtiketi.setText(f"Kalan Süre: {self.kalanSure} sn ")
         
-        # Sure bittiyse zamanlayiciyi durdur ve testi otomatik olarak sonlandir
         if self.kalanSure <= 0:
             self.zamanlayici.stop()
-            print("Süre doldu! Test otomatik bitiriliyor...")
             self.testiBitir()
-    # ---------------------------------------------------------
 
     def mouseMoveEvent(self, event):
         hamX = event.pos().x()
@@ -79,16 +73,30 @@ class testEkrani(QDialog):
 
         islenmisKoor = self.motor.anlikHareket(hamX, hamY)
         self.cizimNoktalari.append((islenmisKoor.x, islenmisKoor.y))
+
+        # YENI: C++ icindeki sabit kuralla ayni sekilde anlik hata kontrolu yapiyoruz
+        if islenmisKoor.x < 150 or islenmisKoor.x > 250:
+            self.anlikHata = True
+        else:
+            self.anlikHata = False
+
         self.update()
 
     def paintEvent(self, event):
         ressam = QPainter(self)
         ressam.setRenderHint(QPainter.RenderHint.Antialiasing)
 
+        # YENI: 1. Asama -> Eger hata varsa tum arkaplana kirmizi filtre uygula
+        if self.anlikHata:
+            # 60 degeri seffafligi (alpha) belirler. Ekran hafif kirmiziya boyanir.
+            ressam.fillRect(self.rect(), QColor(255, 0, 0, 60)) 
+
+        # 2. Asama -> Guvenli kanal (Yesil Hedef Rota)
         ressam.setPen(QPen(QColor(200, 200, 200), 1, Qt.PenStyle.DashLine))
         ressam.setBrush(QColor(230, 255, 230, 100))
         ressam.drawRect(150, 0, 100, 600) 
 
+        # 3. Asama -> Kullanicinin cizgisi
         kalem = QPen(QColor(255, 0, 0), 4)
         kalem.setCapStyle(Qt.PenCapStyle.RoundCap)
         kalem.setJoinStyle(Qt.PenJoinStyle.RoundJoin)
@@ -100,7 +108,6 @@ class testEkrani(QDialog):
             ressam.drawLine(onceki[0], onceki[1], anlik[0], anlik[1])
 
     def testiBitir(self):
-        # Eger zamanlayici hala calisiyorsa guvenli bir sekilde durduruyoruz
         if self.sureAktif and hasattr(self, 'zamanlayici') and self.zamanlayici.isActive():
             self.zamanlayici.stop()
 

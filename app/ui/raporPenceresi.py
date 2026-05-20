@@ -1,27 +1,37 @@
-from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton
+from PyQt6.QtWidgets import QDialog, QVBoxLayout, QPushButton, QLabel
 from analytics.grafikCizici import grafikCizici
+from ui.replayEkrani import replayEkrani
 
-# test sonrasi basari skorunu ve gorsel analiz secenegini sunan pencere
 class raporPenceresi(QDialog):
-    def __init__(self, basariOrani, veriCercevesi):
+    def __init__(self, basariOrani, veriTablosu):
         super().__init__()
-        self.veriCercevesi = veriCercevesi
+        self.setWindowTitle("DentMirror - Sınav Sonuç Raporu")
+        self.setFixedSize(400, 250) 
         
-        self.setWindowTitle("DentMirror - Sınav Raporu")
-        self.setFixedSize(350, 200)
+        self.veriTablosu = veriTablosu
 
         duzen = QVBoxLayout()
-
-        skorEtiketi = QLabel(f"Simülasyon Bitti!\nMotor Beceri Başarı Oranınız: %{basariOrani:.2f}")
-        duzen.addWidget(skorEtiketi)
+        
+        self.sonucEtiketi = QLabel(f"Simülasyon Bitti!\nMotor Beceri Başarı Oranınız: %{basariOrani:.2f}")
+        self.sonucEtiketi.setStyleSheet("font-size: 14px; font-weight: bold;")
+        duzen.addWidget(self.sonucEtiketi)
 
         grafikButonu = QPushButton("Koordinat ve Hata Grafiğini Göster")
-        grafikButonu.clicked.connect(self.grafigiAc)
+        grafikButonu.clicked.connect(self.grafigiGoster)
         duzen.addWidget(grafikButonu)
+
+        # GUNCELLEME: Butonun yazi rengini (color: black) olarak sabitledik
+        replayButonu = QPushButton("Simülasyonu Tekrar İzle")
+        replayButonu.setStyleSheet("background-color: #e3f2fd; color: black; font-weight: bold;")
+        replayButonu.clicked.connect(self.tekrarIzle)
+        duzen.addWidget(replayButonu)
 
         self.setLayout(duzen)
 
-    # matplotlib uzerinden interaktif analiz grafigini acar
-    def grafigiAc(self):
-        cizici = grafikCizici(self.veriCercevesi)
-        cizici.hataGrafigiCiz()
+    def grafigiGoster(self):
+        cizici = grafikCizici()
+        cizici.grafikUret(self.veriTablosu)
+
+    def tekrarIzle(self):
+        self.tekrarPenceresi = replayEkrani(self.veriTablosu)
+        self.tekrarPenceresi.exec()
