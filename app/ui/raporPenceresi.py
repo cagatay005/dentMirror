@@ -29,8 +29,8 @@ class raporPenceresi(QDialog):
         self.setLayout(duzen)
 
     def grafigiGoster(self):
-        cizici = grafikCizici()
-        cizici.grafikUret(self.veriTablosu)
+        cizici = grafikCizici(self.veriTablosu)
+        cizici.hataGrafigiCiz()
 
     def tekrarIzle(self):
         self.tekrarPenceresi = replayEkrani(self.veriTablosu)
