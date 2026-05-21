@@ -12,6 +12,12 @@ As students move a virtual surgical tool (mouse) on the screen, the system rever
 * **Progress Tracking (Logging):** After each test, the student's name, date, test mode, and success score are automatically saved to the `data/gelisimRaporu.csv` file.
 * **Visual Reporting:** Instant visual analysis and success rate calculation post-test with Matplotlib and Pandas integration.
 
+## Download for Windows (Portable)
+
+You can run the DentMirror simulator directly on Windows without setting up a Python environment or dealing with C++ compilers. 
+
+Simply head over to the **[Releases](https://github.com/cagatay005/dentMirror/releases)** section, download the latest `.zip` file, extract it to a folder, and run the executable file to start your simulation immediately. No installation is required!
+
 ## Project Architecture
 The project consists of two main layers: **C++** (Core) for performance-heavy calculations and **Python** (App) for the UI/analytics:
 
