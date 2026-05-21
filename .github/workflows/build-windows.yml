@@ -25,12 +25,15 @@ jobs:
         pip install -r requirements.txt
         pip install pybind11 pyinstaller
 
+    - name: MSVC Derleyici Ortamini Kur
+      uses: ilammy/msvc-dev-cmd@v1
+
     - name: C++ Motorunu Windows Icin Derle
       run: |
         mkdir build
         cd build
         $PYBIND_DIR = python -c "import pybind11; print(pybind11.get_cmake_dir())"
-        cmake -G "Visual Studio 17 2022" -A x64 -Dpybind11_DIR="$PYBIND_DIR" ..
+        cmake -Dpybind11_DIR="$PYBIND_DIR" ..
         cmake --build . --config Release
       shell: pwsh 
 
