@@ -42,7 +42,7 @@ jobs:
         New-Item -ItemType Directory -Force -Path data
         pyinstaller --noconfirm --onedir --windowed `
           --add-data "data;data/" `
-          --add-data "build/Release/dentMirrorCore*.pyd;build/" `
+          --add-data "build/Release/dentMirrorCore*.pyd;./" `
           app/baslangic.py
       shell: pwsh
 
