@@ -1,4 +1,5 @@
 import os
+os.makedirs("data", exist_ok=True)
 import csv
 from datetime import datetime
 

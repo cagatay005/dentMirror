@@ -40,7 +40,7 @@ jobs:
     - name: PyInstaller ile Executable Olustur
       run: |
         New-Item -ItemType Directory -Force -Path data
-        pyinstaller --noconfirm --onedir --console `
+        pyinstaller --noconfirm --onedir --windowed `
           --add-data "data;data/" `
           --add-data "build/Release/dentMirrorCore*.pyd;./" `
           app/baslangic.py
