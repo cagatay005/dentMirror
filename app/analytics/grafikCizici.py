@@ -1,3 +1,10 @@
+import sys
+import matplotlib
+
+# Eğer işletim sistemi Windows ise bu motoru kullan, Linux ise kendi haline bırak
+if sys.platform == 'win32':
+    matplotlib.use('TkAgg') 
+
 import matplotlib.pyplot as plt
 
 # test sonuclarini gorsel grafiklere donusturen sinif
@@ -25,4 +32,4 @@ class grafikCizici:
         plt.legend()
         
         plt.tight_layout()
-        plt.show()
+        plt.show(block=True)
