@@ -1,8 +1,14 @@
-<h1>DentMirror - Indirect Vision Simulator</h1>
+# DentMirror - Indirect Vision Simulator
+
+<p align="center">
+  <img src="dentMirror.png" alt="DentMirror Logo" width="600">
+</p>
 
 DentMirror is a hybrid (C++ / Python) simulation software designed for dental students to improve their indirect vision and hand-eye coordination skills using a dental mirror.
 
 As students move a virtual surgical tool (mouse) on the screen, the system reverses these movements in real-time, accelerating the brain's adaptation to mirror-image working environments.
+
+## Features
 
 ## Features
 * **Real-Time C++ Engine:** Mouse X and Y coordinates are captured in milliseconds by the C++ engine (via pybind11) and inverted based on the selected mirror mode.
