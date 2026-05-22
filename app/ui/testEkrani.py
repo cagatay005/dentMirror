@@ -126,4 +126,4 @@ class testEkrani(QDialog):
 
         self.rapor = raporPenceresi(basariOrani, df)
         self.close()
-        self.rapor.exec()
+        self.rapor.show()

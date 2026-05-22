@@ -34,4 +34,4 @@ class raporPenceresi(QDialog):
 
     def tekrarIzle(self):
         self.tekrarPenceresi = replayEkrani(self.veriTablosu)
-        self.tekrarPenceresi.exec()
+        self.tekrarPenceresi.show()

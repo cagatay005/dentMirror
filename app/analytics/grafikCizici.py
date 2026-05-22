@@ -25,4 +25,4 @@ class grafikCizici:
         plt.legend()
         
         plt.tight_layout()
-        plt.show(block=True)
+        plt.show(block=False)
