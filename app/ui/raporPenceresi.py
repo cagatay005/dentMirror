@@ -20,7 +20,7 @@ class raporPenceresi(QDialog):
         grafikButonu.clicked.connect(self.grafigiGoster)
         duzen.addWidget(grafikButonu)
 
-        # GUNCELLEME: Butonun yazi rengini (color: black) olarak sabitledik
+        # Buton ayarlari
         replayButonu = QPushButton("Simülasyonu Tekrar İzle")
         replayButonu.setStyleSheet("background-color: #e3f2fd; color: black; font-weight: bold;")
         replayButonu.clicked.connect(self.tekrarIzle)

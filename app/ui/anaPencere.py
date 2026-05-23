@@ -11,7 +11,7 @@ class anaPencere(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("DentMirror - İndirekt Görüş Simülatörü")
-        self.setFixedSize(400, 420) # Yeni elemanlar icin yuksekligi biraz artirdik
+        self.setFixedSize(400, 420)
 
         anaArac = QWidget()
         duzen = QVBoxLayout()
@@ -30,7 +30,7 @@ class anaPencere(QMainWindow):
         self.modSecici.addItems(["Yatay Ters", "Dikey Ters", "Tam Ayna"])
         duzen.addWidget(self.modSecici)
 
-        # --- YENİ: Sure Siniri Ayarlari ---
+        # --- Sure Siniri Ayarlari ---
         self.sureKontrol = QCheckBox("Süre Sınırı Uygulansın")
         self.sureKontrol.stateChanged.connect(self.sureKutusunuKapaAc)
         duzen.addWidget(self.sureKontrol)
@@ -75,6 +75,6 @@ class anaPencere(QMainWindow):
 
         print(f"Test Başlatılıyor -> İsim: {ogrenciAdi}, Mod: {secilenMod}, Süre Sınırı: {sureAktif} ({toplamSure} sn)")
         
-        # Parametreleri test ekranina pasliyoruz
+        # Parametreleri test ekranina gönderir
         self.simulasyonPenceresi = testEkrani(secilenMod, ogrenciAdi, sureAktif, toplamSure)
         self.simulasyonPenceresi.exec()

@@ -6,7 +6,6 @@ class replayEkrani(QDialog):
     def __init__(self, veriTablosu):
         super().__init__()
         self.setWindowTitle("DentMirror - Simülasyon Tekrar Oynatımı")
-        # Kontrol butonlarina yer acmak icin yuksekligi 600'den 660'a cikardik
         self.setFixedSize(800, 660) 
         
         self.veriTablosu = veriTablosu
@@ -16,7 +15,7 @@ class replayEkrani(QDialog):
         self.anlikHata = False
         self.oynatiliyor = True # Medya oynatici durumu
 
-        # Performans Icin: Pandas tablosunu hizli bir listeye ceviriyoruz (Kasma olmamasi icin)
+        # Performans Icin: Pandas tablosunu hizli bir listeye cevirir
         self.tumVeriler = []
         for i in range(self.toplamKare):
             satir = self.veriTablosu.iloc[i]
@@ -36,7 +35,7 @@ class replayEkrani(QDialog):
         # Cizim alanini (tuvali) uste itmek icin bosluk
         duzen.addStretch()
 
-        # --- YENİ: Medya Oynatıcı Kontrol Çubuğu ---
+        # --- Medya Oynatıcı Kontrol Çubuğu ---
         kontrolDuzeni = QHBoxLayout()
         
         # Geri Sar Butonu
@@ -67,7 +66,7 @@ class replayEkrani(QDialog):
 
         self.setLayout(duzen)
 
-        # Oynatici motorunu (Zamanlayiciyi) baslatiyoruz
+        # Oynatici motorunu (Zamanlayiciyi) baslatir
         self.zamanlayici = QTimer()
         self.zamanlayici.timeout.connect(self.sonrakiKareyiOynat)
         self.zamanlayici.start(30)
@@ -130,7 +129,7 @@ class replayEkrani(QDialog):
         ressam.setBrush(QColor(230, 255, 230, 100))
         ressam.drawRect(150, 0, 100, 600)
 
-        # Gecmise yonelik tum noktalari birlestirip ciziyoruz
+        # Gecmise yonelik tum noktalari birlestirip cizer
         kalem = QPen(QColor(0, 0, 255), 4) 
         kalem.setCapStyle(Qt.PenCapStyle.RoundCap)
         kalem.setJoinStyle(Qt.PenJoinStyle.RoundJoin)

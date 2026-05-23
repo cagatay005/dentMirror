@@ -7,8 +7,6 @@ class grafikCizici:
             print("Grafik çizilecek veri bulunamadı.")
             return
 
-        # SİHİRLİ DOKUNUŞ: Matplotlib'i sadece bu butona basıldığında yüklüyoruz.
-        # Bu sayede uygulamanın ilk açılış hızı roket gibi olacak!
         import matplotlib.pyplot as plt
 
         plt.figure(figsize=(8, 5))

@@ -31,7 +31,7 @@ class testEkrani(QDialog):
             self.modStr = "Tam Ayna"
 
         self.cizimNoktalari = []
-        self.anlikHata = False # YENI: Kirmizi filtreyi tetikleyecek durum degiskeni
+        self.anlikHata = False # Kirmizi filtreyi tetikleyecek durum degiskeni
 
         duzen = QVBoxLayout()
         
@@ -74,7 +74,7 @@ class testEkrani(QDialog):
         islenmisKoor = self.motor.anlikHareket(hamX, hamY)
         self.cizimNoktalari.append((islenmisKoor.x, islenmisKoor.y))
 
-        # YENI: C++ icindeki sabit kuralla ayni sekilde anlik hata kontrolu yapiyoruz
+        # C++ icindeki sabit kuralla ayni sekilde anlik hata kontrolu yapar
         if islenmisKoor.x < 150 or islenmisKoor.x > 250:
             self.anlikHata = True
         else:
@@ -86,7 +86,7 @@ class testEkrani(QDialog):
         ressam = QPainter(self)
         ressam.setRenderHint(QPainter.RenderHint.Antialiasing)
 
-        # YENI: 1. Asama -> Eger hata varsa tum arkaplana kirmizi filtre uygula
+        # 1. Asama -> Eger hata varsa tum arkaplana kirmizi filtre uygula
         if self.anlikHata:
             # 60 degeri seffafligi (alpha) belirler. Ekran hafif kirmiziya boyanir.
             ressam.fillRect(self.rect(), QColor(255, 0, 0, 60)) 
